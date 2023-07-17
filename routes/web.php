@@ -19,8 +19,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function() {
+    return view('welcome');
+});
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+Route::get('/books', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('user.list');
 Route::get('/lista-na-avtori', [App\Http\Controllers\AuthorsController::class, 'index'])->name('author.list');
