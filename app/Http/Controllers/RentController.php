@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
 use App\Models\Books;
+use App\Models\Users;
 
-class UsersController extends Controller
+class RentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,10 @@ class UsersController extends Controller
     public function index()
     {
         $data['users'] = Users::all();
-        return view('user.list', $data);
+        $data['books'] = Books::all();
+
+        return view('rent.list', $data);
+
     }
 
     /**
@@ -46,12 +49,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show($id)
     {
-        $data['users'] = Users::find($userId);
-
-        $data['books'] = Books::all();
-        return view('user.show', $data);
+        //
     }
 
     /**

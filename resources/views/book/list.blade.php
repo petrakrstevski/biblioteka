@@ -9,9 +9,9 @@
     <div class="kb-widget-section">
 
         <div class="row justify-content-center">
-        @foreach($books as $book)
             
-
+        @foreach($books as $book)
+       
             <div class="col-xxl-2 col-xl-3 col-lg-3 mb-lg-0 col-md-6 mb-3">
             
                 <div class="card">
@@ -27,6 +27,9 @@
                 </div>
             </div>
             @endforeach
+            
+            
+
             </div>
                 </div>
                 </div>
