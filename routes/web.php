@@ -6,7 +6,7 @@ use App\Http\Controllers\CustomAuthController;
 // var $queryString = `SELECT P.id, B.title, A.name, S.title 
 // from lina_biblioteka.status as S left join 
 // lina_biblioteka.product as P on P.status_id = S.id  left join
-// lina_biblioteka.book as B on B.id= P.book_id left join 
+// lina_biblioteka.book as B on B.id    = P.book_id left join 
 // lina_biblioteka.author_has_book as AB on B.id= AB.book_id left JOIN 
 // lina_biblioteka.author as A on A.id= AB.author_id 
 // `
@@ -49,4 +49,6 @@ Route::post('/profile/2fa', [App\Http\Controllers\ProfileController::class, 'two
 Route::get('/login/otp', 'App\Http\Controllers\OTPController@show')->name('auth.otp');
 Route::post('/login/otp', 'App\Http\Controllers\OTPController@check');
 
-Route::get('/rent', [App\Http\Controllers\RentController::class, 'index'])->name('rent.user');
+Route::post('/rent', [App\Http\Controllers\RentController::class, 'store'])->name('rent');
+
+

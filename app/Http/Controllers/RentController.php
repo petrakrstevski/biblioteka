@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Books;
 use App\Models\Users;
+use App\Models\Rent;
+
 
 class RentController extends Controller
 {
@@ -39,9 +41,20 @@ class RentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
+        { 
+            $request->validate([
+            'books' => 'required'
+        ]);
+        foreach ($request->books as $book) {
+            $rent = new Rent;
+            $rent->book_id = $book;
+            $rent->user_id = $request->userId;
+            $rent->save();
+        }
+        
+        return redirect()->back();
+        
+        }
 
     /**
      * Display the specified resource.
@@ -73,9 +86,9 @@ class RentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
+{
+//    
+}
 
     /**
      * Remove the specified resource from storage.

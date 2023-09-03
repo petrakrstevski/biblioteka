@@ -32,5 +32,5 @@
   
 
     <p class="name">{{$author->description}}</p>
-<!-- <a href="{{ route('author.list')}}">Назад до сите автори</a> -->
+<!-- <a href={{ route('author.list')}}">Назад до сите автори</a> -->
 @endsection

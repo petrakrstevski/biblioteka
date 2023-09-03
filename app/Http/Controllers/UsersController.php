@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Models\Books;
+use App\Models\Rent;
+use App\Models\Rents;
+
 
 class UsersController extends Controller
 {
@@ -24,10 +27,22 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create(Request $request, $userId)
+     { 
+            $request->validate([
+            'book' => 'required'
+        ]);
+        foreach ($request->book as $book) {
+            $rent = new Rent;
+            $rent->book_id = $book;
+            $rent->user_id = $userId;
+            $rent->save();
+        }
+        
+        return redirect()->back();
+        
+        }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -49,7 +64,7 @@ class UsersController extends Controller
     public function show($userId)
     {
         $data['users'] = Users::find($userId);
-
+        $data['rents'] = Rents::where('user_id', $userId)->get();
         $data['books'] = Books::all();
         return view('user.show', $data);
     }
@@ -74,7 +89,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([       
+            'return_date'=>'required|date'    
+       ]);
+  
+      Rent::find($id)->update($request->all());
+  
+      return redirect()->back()->with('message', 'You have successfully updated the rent');
     }
 
     /**
