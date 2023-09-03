@@ -1,7 +1,9 @@
 
 @extends('_layout.cork')
 @section('content')
+<div>
 <img src="{{$book->image}}" width="270px" height="300" class="img"/>
+</div>
 <style>
  .img{
     float:left;
@@ -32,6 +34,8 @@
     <p class="name"> {{$book->description}}</p>
 <!-- <a href="{{ route('book.list')}}">Назад до сите книги</a> -->
 
+
+
 <div class="faq container">
   <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">+</button> -->
 <div class="faq-layouting layout-spacing"> 
@@ -54,6 +58,10 @@
         </tr>
     </thead>
     
+
+    
+
+
     @foreach($rents as $rent)
             <tr>
                 <td>
@@ -64,14 +72,17 @@
                 <td>
                 <div class="media">
                         
-                        <img src="{{$rent->image}}" alt="" width="50px" height="60px">
-                    
-                        <!-- <h1 class="name">{{$rent->title}}</h1> -->
+                        
+                <div class="avatar me-2">
+                        <img  alt="avatar" src="https://0.gravatar.com/avatar/{{ md5($rent->email) }}" class="rounded-circle"> 
 
-                        <div class="media-body align-self-center">
-                           <a href="{{ route('book.show', ['id' => $rent->id])}}"><p class="mb-0">{{$rent->title}}</p></a>
-                           
                         </div>
+                        <div class="media-body align-self-center">
+                            <h6 class="mb-0">{{ucfirst($rent->name)}}</h6>
+                            <span>{{$rent->email}}</span>
+                        </div>
+                    </div>
+                        
                 </div>
 
                 
@@ -87,8 +98,7 @@
                     <!-- <span class="badge badge-light-info">On Hold</span> -->
                     <!-- <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#myModal">Add</button> -->
 
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Врати</button>
-
+                    <a href="{{route('rent.return', ['rentId' => $rent->id])}}"> Врати </a>
                 </td>
                 <td class="text-center">
                     <div class="action-btns">
@@ -107,4 +117,67 @@
 
          @endforeach 
     
+
+         <form action="{{ route('rent')}}" method="POST">
+    @csrf
+
+
+    <input type="hidden" name="bookId" value="{{$book->id}}">
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Моментално достапни книги:</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal"><h4>&times;<h4></button> -->
+        </div>
+        <div class="modal-body">
+    
+
+        <div class="faq-layouting layout-spacing">
+
+            <div class="kb-widget-section">
+
+                <div class="row justify-content-center">
+                @foreach($users as $user)
+                    
+
+                    <div class="col-xxl-2 col-xl-3 col-lg-3 mb-lg-0 col-md-6 mb-3">
+                    
+                    
+                            <div class="card-body">
+                            <div class="card-icon mb-4">
+                                   
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> -->
+                                <img src="{{ $book->image}}" alt="" width="50px" height="70px">
+                                </div>
+                                
+                                <p class='card-title mb-0'>{{$user->name}}</p></a>
+                                <label> 
+                                <input name="user[]" value="{{$user->id}}" type="checkbox"/>  
+                                </label>
+                            
+                            
+                        </div>
+                    </div>
+                    @endforeach
+                    </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+                
+
+
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    
+    </div>
+</form>
 @endsection

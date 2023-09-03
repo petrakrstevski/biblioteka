@@ -29,12 +29,18 @@ Route::get('/books', [App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('user.list');
 Route::get('/users/{userId}', [App\Http\Controllers\UsersController::class, 'show'])->name('user.show');
 
+Route::get('/updateRent/{rentId}', [App\Http\Controllers\UsersController::class, 'updateRent'])->name('rent.return');
+
+
 
 Route::get('/lista-na-avtori', [App\Http\Controllers\AuthorsController::class, 'index'])->name('author.list');
 Route::get('/lista-na-knigi', [App\Http\Controllers\BooksController::class, 'index'])->name('book.list');
 
 Route::get('/author/{id}', [App\Http\Controllers\AuthorsController::class, 'show'])->name('author.show');
 Route::get('/book/{id}', [App\Http\Controllers\BooksController::class, 'show'])->name('book.show');
+
+Route::post('/book/{bookId}', [App\Http\Controllers\BooksController::class, 'create'])->name('rentBook.create');
+
 
 Route::get('dashboard', [App\Http\Controllers\CustomAuthController::class, 'dashboard']); 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login');

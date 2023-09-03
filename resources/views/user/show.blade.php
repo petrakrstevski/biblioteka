@@ -12,8 +12,8 @@
 	height:60px;
 	bottom:40px;
 	right:40px;
-	background-color:#0C9;
-	color:blue;
+	background-color:white;
+	color:black;
 	border-radius:50px;
 	text-align:center;
 	box-shadow: 2px 2px 3px #999;
@@ -63,6 +63,10 @@
                 </div>
             </th>
             <th scope="col">Name</th>
+            <th scope="col">Датум на земање</th>
+            <th scope="col">Датум на враќање</th>
+
+
             <!-- <th scope="col">Role</th> -->
             <th class="text-center" scope="col">Status</th>
             <th class="text-center" scope="col"></th>
@@ -95,15 +99,18 @@
               
 
                 <td>
-                    <p class="mb-0">Lead Designer</p>
-                    <span class="text-info">Graphic</span>
+                    <p>{{$rent->issue_date}}</p>
+                </td>
+
+                <td>
+                    <p>{{$rent->return_date}}</p>
                 </td>
                 
                 <td class="text-center">
                     <!-- <span class="badge badge-light-info">On Hold</span> -->
                     <!-- <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#myModal">Add</button> -->
 
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Врати</button>
+                    <a href="{{route('rent.return', ['rentId' => $rent->id])}}"> Врати </a>
 
                 </td>
                 <td class="text-center">

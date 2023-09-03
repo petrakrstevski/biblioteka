@@ -87,13 +87,16 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateRent(Request $request, $id)
     {
-        $request->validate([       
-            'return_date'=>'required|date'    
-       ]);
-  
-      Rent::find($id)->update($request->all());
+        
+
+      $rent = Rent::find($id);
+
+      if ($rent) {
+        $rent->return_date =  date('Y-m-d H:i:s');
+        $rent->save();
+      }
   
       return redirect()->back()->with('message', 'You have successfully updated the rent');
     }
